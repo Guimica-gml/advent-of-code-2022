@@ -40,17 +40,14 @@ fn parse_input(filepath: &str) -> Vec<Instruction> {
     instructions
 }
 
-fn part1(instructions: &Vec<Instruction>) -> i32{
+fn part1(instructions: &Vec<Instruction>) -> i32 {
     let mut check_cycle = 60;
-    let mut cycle = 1;
     let mut x = 1;
     let mut answer = 0;
     let mut sum_before_20 = 1;
     let mut instructions = instructions.iter();
 
-    while cycle < 220 {
-        cycle += 1;
-
+    for cycle in 2..=220 {
         match instructions.next().unwrap() {
             Instruction::Addx(num) => {
                 x += num;
@@ -74,25 +71,22 @@ fn part1(instructions: &Vec<Instruction>) -> i32{
 }
 
 fn part2(instructions: &Vec<Instruction>) {
-    let mut cycle = 1;
     let mut x = 1;
     let mut instructions = instructions.iter();
     let mut row = 0;
 
-    let fill_char = "██";
-    let empty_char = "  ";
+    let fill_char = '#';
+    let empty_char = '.';
 
     print!("{}", fill_char);
-    while cycle < 240 {
-        cycle += 1;
-
+    for cycle in 2..=240 {
         match instructions.next().unwrap() {
             Instruction::Addx(num) => x += num,
             Instruction::Noop => {}
         }
 
-        let sprite_position = cycle - (row * 40);
-        if sprite_position == x || sprite_position == x + 1 || sprite_position == x + 2 {
+        let spr_pos = cycle - (row * 40);
+        if spr_pos == x || spr_pos == x + 1 || spr_pos == x + 2 {
             print!("{}", fill_char);
         }
         else {
